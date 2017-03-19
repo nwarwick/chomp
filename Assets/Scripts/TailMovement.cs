@@ -16,7 +16,7 @@ public class TailMovement : MonoBehaviour {
 		var leaderangle = Mathf.Atan2(leaderspot.y, leaderspot.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Euler(0, 0, leaderangle-90);
 		
-		var moveSpeed = (leaderDistance2*2)/(stickDistance*stickDistance);	// as the leading object gets further away, the tail accellerates - this gives a "stretchy" motion
+		var moveSpeed = (leaderDistance2*2.0f)/(stickDistance*stickDistance);
 		gameObject.transform.position += gameObject.transform.up * moveSpeed * Time.deltaTime;
 		
 	}
