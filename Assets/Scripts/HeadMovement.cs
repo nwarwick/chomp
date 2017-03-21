@@ -16,34 +16,49 @@ public class HeadMovement : MonoBehaviour
 	float coolCurrent = 0;
 	float currentBoost = 0;
 	
+	public bool dead = false;
+	public Vector3 deadAngle = new Vector3(0f, 0f, 0f);
+
+	
 	void Start () {	}
 	
 	void FixedUpdate () 
 	{
-		if (moveSpeed > topSpeed)
-			moveSpeed = topSpeed;
-		
-		if (currentBoost > boostLength - (1.0f/4.0f))
-		{	// in the first 1/4 second, we are interpolating up to full boost speed
-			var accelFactor = (boostLength-currentBoost)*4.0f;
-			moveSpeed = (moveSpeed * (1.0f-accelFactor)) + ((topSpeed * boostSpeed) * (accelFactor));
+		if (dead)
+		{	// if dead
+			gameObject.transform.position += deadAngle * Time.deltaTime; // slide in a randomly selected (by WormDie.cs) direction
+			transform.Rotate(Vector3.forward * Time.deltaTime * 90f);	// rotate
+			transform.localScale += new Vector3(-0.004f, -0.004f, 0);
+			
+
 		}
-		else if (currentBoost > (boostLength/2.0f))
-		{	// then cruise at full boosted speed until the halfway point
-			moveSpeed = topSpeed * boostSpeed;
-		}
-		else if (currentBoost > 0)
-		{	// then interpolate back down to normal travel speed
-			var decelFactor = currentBoost / (boostLength/2.0f); // goes from 1 to 0
-			moveSpeed = (moveSpeed * (1.0f-decelFactor)) + ((topSpeed * boostSpeed) * (decelFactor));
-		}
+		else
+		{
+			if (moveSpeed > topSpeed)
+				moveSpeed = topSpeed;
 		
-		gameObject.transform.position += gameObject.transform.up * moveSpeed * Time.deltaTime;
+			if (currentBoost > boostLength - (1.0f/4.0f))
+			{	// in the first 1/4 second, we are interpolating up to full boost speed
+				var accelFactor = (boostLength-currentBoost)*4.0f;
+				moveSpeed = (moveSpeed * (1.0f-accelFactor)) + ((topSpeed * boostSpeed) * (accelFactor));
+			}
+			else if (currentBoost > (boostLength/2.0f))
+			{	// then cruise at full boosted speed until the halfway point
+				moveSpeed = topSpeed * boostSpeed;
+			}
+			else if (currentBoost > 0)
+			{	// then interpolate back down to normal travel speed
+				var decelFactor = currentBoost / (boostLength/2.0f); // goes from 1 to 0
+				moveSpeed = (moveSpeed * (1.0f-decelFactor)) + ((topSpeed * boostSpeed) * (decelFactor));
+			}
 		
-		if (currentBoost > 0)
-			currentBoost -= Time.deltaTime;
-		if (currentBoost <= 0 && coolCurrent > 0)
-			coolCurrent -= Time.deltaTime;
+			gameObject.transform.position += gameObject.transform.up * moveSpeed * Time.deltaTime;
+		
+			if (currentBoost > 0)
+				currentBoost -= Time.deltaTime;
+			if (currentBoost <= 0 && coolCurrent > 0)
+				coolCurrent -= Time.deltaTime;
+		}
 	}
 	
 	public void turnTowards(Vector3 point)
@@ -60,5 +75,7 @@ public class HeadMovement : MonoBehaviour
 			coolCurrent = coolMax;
 		}
 	}
+	
+	
 	
 }
