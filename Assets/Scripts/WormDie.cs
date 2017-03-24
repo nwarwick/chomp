@@ -15,7 +15,7 @@ public class WormDie : MonoBehaviour {
 	
 	void Update () { }
 	
-	void Kill()
+	public void Kill()
 	{
 		head.GetComponent<HeadMovement>().deadAngle = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0f);
 		head.GetComponent<HeadMovement>().dead = true;

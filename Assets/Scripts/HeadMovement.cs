@@ -76,6 +76,21 @@ public class HeadMovement : MonoBehaviour
 		}
 	}
 	
-	
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		if (other.gameObject.name.StartsWith("Food"))
+		{
+			Destroy (other.gameObject);
+			// increment the player's score as well
+		}
+		if (other.gameObject.name.StartsWith("tail"))
+		{
+			if (currentBoost > 0)
+			{
+				other.transform.parent.GetComponent<WormDie>().Kill();
+				// increment the player's score as well
+			}
+		}
+	}
 	
 }
