@@ -91,15 +91,15 @@ public class HeadMovement : MonoBehaviour
 			player.IncrementScore(food.scoreWeight); // Increment score by 10 for food. 
 			food.DestroyFood(); // Eat da food
 		}
-		
-		if (other.gameObject.name.StartsWith("Tail"))
+		else if (other.gameObject.tag == "Body" && currentBoost > 0)
 		{
-			if (currentBoost > 0)
-			{
-				other.transform.parent.GetComponent<WormDie>().Kill();
-				// increment the player's score as well
-				player.IncrementScore(100);
-			}
+			other.transform.parent.GetComponent<WormDie>().Kill();
+			// increment the player's score as well
+			player.IncrementScore(100);
+		}
+		else
+		{	// if the worm hits somethign that doesn't give way, it looses any boost momentum
+			currentBoost = 0;
 		}
 	}
 }
