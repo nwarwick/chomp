@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HeadMovement : MonoBehaviour 
 {
+	public Player player;
 	// BASIC MOVEMENT VALUES
 	public float topSpeed;		// maximum movement speed (when not boosting)
 	// BOOST VALUES
@@ -18,9 +19,15 @@ public class HeadMovement : MonoBehaviour
 	
 	public bool dead = false;
 	public Vector3 deadAngle = new Vector3(0f, 0f, 0f);
+	
 
 	
-	void Start () {	}
+	void Start () {	
+		if(player == null){
+			player = transform.parent.gameObject.GetComponent<Player>();
+		}
+		
+	}
 	
 	void FixedUpdate () 
 	{
@@ -75,22 +82,24 @@ public class HeadMovement : MonoBehaviour
 			coolCurrent = coolMax;
 		}
 	}
-	
+
 	void OnCollisionEnter2D(Collision2D other)
 	{
-		if (other.gameObject.name.StartsWith("Food"))
+		if (other.gameObject.tag == "Food")
 		{
-			Destroy (other.gameObject);
-			// increment the player's score as well
+			Food food = other.gameObject.GetComponent<Food>();
+			player.IncrementScore(food.scoreWeight); // Increment score by 10 for food. 
+			food.DestroyFood(); // Eat da food
 		}
-		if (other.gameObject.name.StartsWith("tail"))
+		
+		if (other.gameObject.name.StartsWith("Tail"))
 		{
 			if (currentBoost > 0)
 			{
 				other.transform.parent.GetComponent<WormDie>().Kill();
 				// increment the player's score as well
+				player.IncrementScore(100);
 			}
 		}
 	}
-	
 }
