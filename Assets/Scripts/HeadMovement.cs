@@ -83,13 +83,14 @@ public class HeadMovement : MonoBehaviour
 			Destroy (other.gameObject);
 			// increment the player's score as well
 		}
-		if (other.gameObject.name.StartsWith("tail"))
+		else if (other.gameObject.name.StartsWith("tail") && currentBoost > 0)
 		{
-			if (currentBoost > 0)
-			{
-				other.transform.parent.GetComponent<WormDie>().Kill();
-				// increment the player's score as well
-			}
+			other.transform.parent.GetComponent<WormDie>().Kill();
+			// increment the player's score as well
+		}
+		else
+		{	// if the worm hits somethign that doesn't give way, it looses any boost momentum
+			currentBoost = 0;
 		}
 	}
 	
