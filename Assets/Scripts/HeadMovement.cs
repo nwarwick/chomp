@@ -8,13 +8,13 @@ public class HeadMovement : MonoBehaviour
 	// BASIC MOVEMENT VALUES
 	public float topSpeed;		// maximum movement speed (when not boosting)
 	// BOOST VALUES
-	public float coolMax;	// this is the number of seconds before the worm can boost again
+	public float boostCoolDown;	// this is the number of seconds before the worm can boost again
 	public float boostSpeed;	// how many times faster the boost carries the worm
 	public float boostLength;	// how long the boost lasts
 	// INTERNAL MOVEMENT VARIABLES
-	public float moveSpeed = 0;  // (this is only "public" so playerControls and AI can get at it)
+	public float moveSpeed = 20;  // (this is only "public" so playerControls and AI can get at it)
 	// INTERNAL BOOST VARIABLES
-	public float coolCurrent = 0;
+	public float coolCurrent = 0; // Made public for charge status update
 	float currentBoost = 0;
 	
 	public bool dead = false;
@@ -79,7 +79,7 @@ public class HeadMovement : MonoBehaviour
 		if (coolCurrent <= 0)
 		{
 			currentBoost = boostLength;
-			coolCurrent = coolMax;
+			coolCurrent = boostCoolDown;
 		}
 	}
 
