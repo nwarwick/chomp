@@ -19,7 +19,7 @@ public class PlayerControls : MonoBehaviour
 		
 		headMovement.turnTowards(mousePosition);
 
-		headMovement.moveSpeed = (mouseDistance)/((2000f)*(headMovement.topSpeed*headMovement.topSpeed));	// 2000f was chosen so that the worm will hit maximum speed at about 4 grid-squares away
+		//headMovement.moveSpeed = (mouseDistance)/((2000f)*(headMovement.topSpeed*headMovement.topSpeed));	// 2000f was chosen so that the worm will hit maximum speed at about 4 grid-squares away
 		
 		if (Input.GetMouseButtonDown (0)) 
 		{
