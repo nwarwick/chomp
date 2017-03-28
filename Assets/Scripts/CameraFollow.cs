@@ -10,6 +10,8 @@ public class CameraFollow : MonoBehaviour {
 	
 	void FixedUpdate () 
 	{
-		transform.position = new Vector3 (player.transform.position.x, player.transform.position.y, -10f);
+		// Don't follow the player if they are dead
+		if(player != null )
+			transform.position = new Vector3 (player.transform.position.x, player.transform.position.y, -10f);
 	}
 }
