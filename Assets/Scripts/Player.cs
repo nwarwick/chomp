@@ -27,7 +27,6 @@ public class Player : MonoBehaviour {
 	// Update the charge status text
 	void HandleChargeStatus()
 	{
-		Debug.Log("cool = " + headMovement.coolCurrent);
 		if(headMovement.coolCurrent <= 0)
 		{
 			uiChargeStatus.text = "Charge ready!";
