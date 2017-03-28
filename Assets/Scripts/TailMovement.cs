@@ -12,7 +12,7 @@ public class TailMovement : MonoBehaviour {
 	
 	void Start () 
 	{
-		//Physics.IgnoreCollision(leader.GetComponent<Collider>(), GetComponent<Collider>()); 
+		Physics2D.IgnoreCollision(leader.GetComponent<CircleCollider2D>(), GetComponent<CircleCollider2D>()); // Ignore collisions with leading object
 	}
 	
 	void FixedUpdate () {
