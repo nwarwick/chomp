@@ -93,6 +93,7 @@ public class HeadMovement : MonoBehaviour
 		}
 		else if (other.gameObject.tag == "Body" && currentBoost > 0)
 		{
+			Debug.Log("HIT");
 			other.transform.parent.GetComponent<WormDie>().Kill();
 			// increment the player's score as well
 			player.IncrementScore(100);
