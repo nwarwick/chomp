@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeadMovement : MonoBehaviour 
+public class Head : MonoBehaviour 
 {
 	public Player player;
 	// BASIC MOVEMENT VALUES

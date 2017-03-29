@@ -5,25 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class PlayerControls : MonoBehaviour 
 {
-	public HeadMovement headMovement;
+	public Head head;
 
 	void Start() 
 	{
-		headMovement = GetComponent<HeadMovement> ();
+		head = GetComponent<Head> ();
 	}
 	
 	void FixedUpdate () 
 	{
 		var mousePosition = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-		float mouseDistance = mousePosition.y*mousePosition.y + mousePosition.x * mousePosition.x;	// (actually distance squared)
+		//float mouseDistance = mousePosition.y*mousePosition.y + mousePosition.x * mousePosition.x;	// (actually distance squared)
 		
-		headMovement.turnTowards(mousePosition);
+		head.turnTowards(mousePosition);
 
-		//headMovement.moveSpeed = (mouseDistance)/((2000f)*(headMovement.topSpeed*headMovement.topSpeed));	// 2000f was chosen so that the worm will hit maximum speed at about 4 grid-squares away
+		//head.moveSpeed = (mouseDistance)/((2000f)*(head.topSpeed*head.topSpeed));	// 2000f was chosen so that the worm will hit maximum speed at about 4 grid-squares away
 		
 		if (Input.GetMouseButtonDown (0)) 
 		{
-			headMovement.boost();
+			head.boost();
 		}
 	}
 }

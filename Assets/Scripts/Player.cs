@@ -7,14 +7,17 @@ public class Player : MonoBehaviour {
 	private float score = 0;
 	public Text uiScore; // Score display
 	public Text uiChargeStatus; // Charge status
-	public HeadMovement headMovement;
+	public Head head;
+	public Tail[] bodyParts;
 
 
 	// Use this for initialization
 	void Start () {
 		uiScore = GameObject.Find("PlayerScore").GetComponent<Text>();
 		uiChargeStatus = GameObject.Find("ChargeStatus").GetComponent<Text>();
-		headMovement = gameObject.GetComponentInChildren<HeadMovement>();
+		head = gameObject.GetComponentInChildren<Head>();
+		bodyParts = GetComponentsInChildren<Tail>();
+		Debug.Log(bodyParts);
 	}
 
 	// Increment the players score and display it on the UI
@@ -27,7 +30,7 @@ public class Player : MonoBehaviour {
 	// Update the charge status text
 	void HandleChargeStatus()
 	{
-		if(headMovement.coolCurrent <= 0)
+		if(head.coolCurrent <= 0)
 		{
 			uiChargeStatus.text = "Charge ready!";
 			return;

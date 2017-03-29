@@ -6,19 +6,19 @@ public class AIControls : MonoBehaviour {
 	
 	// a super-simple AI for collision testing
 
-	public HeadMovement headMovement;
+	public Head head;
 
 	void Start() 
 	{
-		headMovement = GetComponent<HeadMovement> ();
+		head = GetComponent<Head> ();
 	}
 	
 	void FixedUpdate () 
 	{
 		Vector3 testPoint = new Vector3(50f, 0f, 0f);
-		headMovement.turnTowards(testPoint);
+		head.turnTowards(testPoint);
 
-		headMovement.moveSpeed = headMovement.topSpeed;
+		head.moveSpeed = head.topSpeed;
 		
 		// at the moment, te AI doesn't boost
 	}

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TailMovement : MonoBehaviour {
+public class Tail : MonoBehaviour {
 
 	public GameObject leader;
 	public float stickDistance;
