@@ -8,6 +8,7 @@ public class AIControls : MonoBehaviour {
 	public int state; // 0 Testing; 1 Wandering; 2 Grazing
 	
 	public GameObject target;	// the object the ai is currently moving towards, if any
+	public GameObject foodQueue1; // these variables SHOULD be a queue, but I can't seem to get that to work
 	Vector3 destination; // the location the ai is moving towards, when it doesn't have an object target
 	
 	// adjust these two floats if the size of the map changes
@@ -26,7 +27,7 @@ public class AIControls : MonoBehaviour {
 	void SetRandomDestination()
 	{
 		destination = new Vector3(Random.Range(-xBound, xBound), Random.Range(-yBound, yBound), 0f);
-		wanderTimer = Random.Range(5.0f, 30.0f);
+		wanderTimer = Random.Range(3.0f, 25.0f);
 	}
 	
 	void FixedUpdate () 
@@ -57,8 +58,15 @@ public class AIControls : MonoBehaviour {
 		{	// GRAZING (moving to the nearest food)
 			if (target == null)
 			{
-				state = 1;
-				SetRandomDestination();
+				if (foodQueue1 == null)
+				{
+					state = 1;
+					SetRandomDestination();
+				}
+				else
+				{
+					target = foodQueue1;
+				}
 			}
 			
 			destination = target.transform.position - head.transform.position;
@@ -67,11 +75,6 @@ public class AIControls : MonoBehaviour {
 			head.moveSpeed = head.topSpeed;
 		}
 		
-		
-		/*Vector3 testPoint = new Vector3(50f, 0f, 0f);
-		head.turnTowards(testPoint);
-
-		head.moveSpeed = head.topSpeed;
 		
 		// at the moment, te AI doesn't boost*/
 	}
