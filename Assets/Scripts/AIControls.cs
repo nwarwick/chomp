@@ -9,6 +9,8 @@ public class AIControls : MonoBehaviour {
 	
 	public GameObject target;	// the object the ai is currently moving towards, if any
 	public GameObject foodQueue1; // these variables SHOULD be a queue, but I can't seem to get that to work
+	public GameObject foodQueue2;
+	public GameObject foodQueue3;
 	Vector3 destination; // the location the ai is moving towards, when it doesn't have an object target
 	
 	// adjust these two floats if the size of the map changes
@@ -56,16 +58,27 @@ public class AIControls : MonoBehaviour {
 		}
 		else if (state == 2)
 		{	// GRAZING (moving to the nearest food)
+			if (foodQueue1 == null)
+			{	// in case someone else eats his food1, but he still has a food2 queued
+				foodQueue1 = foodQueue2;
+				foodQueue2 = foodQueue3;
+				foodQueue3 = null;
+			}
+				
 			if (target == null)
 			{
 				if (foodQueue1 == null)
 				{
+					target = null;
 					state = 1;
 					SetRandomDestination();
 				}
 				else
 				{
 					target = foodQueue1;
+					foodQueue1 = foodQueue2;
+					foodQueue2 = foodQueue3;
+					foodQueue3 = null;
 				}
 			}
 			

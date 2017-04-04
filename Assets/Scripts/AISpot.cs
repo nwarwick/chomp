@@ -20,10 +20,15 @@ public class AISpot : MonoBehaviour {
 			AIControls.target = other.gameObject;
 			AIControls.state = 2;
 		}
-		if (AIControls.state == 2 && other.gameObject.tag == "Food")
+		else if (AIControls.state == 2 && other.gameObject.tag == "Food")
 		{	// if it's already eating, it'll queue this food to eat after
 
-			AIControls.foodQueue1 = other.gameObject;
+			if (AIControls.foodQueue1 == null)
+				AIControls.foodQueue1 = other.gameObject;
+			else if (AIControls.foodQueue2 == null)
+				AIControls.foodQueue2 = other.gameObject;
+			else
+				AIControls.foodQueue3 = other.gameObject;
 			
 			//AIControls.foodQueue.Enqueue(other.gameObject); // this is what we'd LIKE to be doing, intead of a hard-coded set of objects pretending to be a queue
 		}
