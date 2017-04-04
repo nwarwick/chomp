@@ -15,7 +15,7 @@ public class Head : MonoBehaviour
 	public float moveSpeed = 20;  // (this is only "public" so playerControls and AI can get at it)
 	// INTERNAL BOOST VARIABLES
 	public float coolCurrent = 0; // Made public for charge status update
-	float currentBoost = 0;
+	public float currentBoost = 0;
 	
 	public bool dead = false;
 	public Vector3 deadAngle = new Vector3(0f, 0f, 0f);

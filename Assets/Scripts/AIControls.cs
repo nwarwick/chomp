@@ -87,7 +87,31 @@ public class AIControls : MonoBehaviour {
 			
 			head.moveSpeed = head.topSpeed;
 		}
-		
+		else if (state == 3)
+		{	// FLEEING (moving directly away from the other worm, boosting if possible)
+			foodQueue1 = null;
+			foodQueue2 = null;
+			foodQueue3 = null;
+			
+			destination = -(target.transform.position - head.transform.position);
+			head.turnTowards(destination);
+			float targetDistance2 = destination.x * destination.x + destination.y * destination.y;
+			
+			head.moveSpeed = head.topSpeed;
+			
+			if (targetDistance2 < 20)
+				head.boost();
+			else if (targetDistance2 > 150 && head.currentBoost <= 0)
+				state = 1;
+		}
+		else if (state == 4)
+		{	// HUNTING (moving directly towards the target, boosting if possible)
+			foodQueue1 = null;
+			foodQueue2 = null;
+			foodQueue3 = null;
+			
+			head.boost();
+		}
 		
 		// at the moment, te AI doesn't boost*/
 	}

@@ -15,7 +15,12 @@ public class AISpot : MonoBehaviour {
 	
 	void OnTriggerEnter2D(Collider2D other) 
 	{
-        if (AIControls.state == 1 && other.gameObject.tag == "Food")
+		if(other.gameObject.name == "Head")
+		{	// if it sees the other worm's head first, it assumes it's being hunted
+			AIControls.state = 3;
+			AIControls.target = other.gameObject;
+		}
+        else if (AIControls.state == 1 && other.gameObject.tag == "Food")
 		{	// the searching worm has found food to eat
 			AIControls.target = other.gameObject;
 			AIControls.state = 2;
