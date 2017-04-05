@@ -16,6 +16,7 @@ public class Head : MonoBehaviour
 	// INTERNAL BOOST VARIABLES
 	public float coolCurrent = 0; // Made public for charge status update
 	public float currentBoost = 0;
+	Vector3 boostDirection;
 	
 	public bool dead = false;
 	public Vector3 deadAngle = new Vector3(0f, 0f, 0f);
@@ -70,8 +71,36 @@ public class Head : MonoBehaviour
 	
 	public void turnTowards(Vector3 point)
 	{
-		var relativeMA = Mathf.Atan2(point.y, point.x) * Mathf.Rad2Deg;
-		transform.rotation = Quaternion.Euler(0, 0, relativeMA-90);
+		if (currentBoost > boostLength - (1.0f/4.0f))
+		{	
+			var relativeMA = (Mathf.Atan2(point.y, point.x) * Mathf.Rad2Deg) - 90f;
+			var relativeBA = boostDirection;
+						
+			if (relativeMA - relativeBA.z > 0)
+			{	// turn left
+				relativeBA.z += (3f * boostLength-(1.0f/4.0f));
+			}
+			else
+			{	// turn right
+				relativeBA.z -= (3f * boostLength-(1.0f/4.0f));
+			}
+			transform.rotation = Quaternion.Euler(relativeBA);
+			
+			boostDirection = gameObject.transform.eulerAngles;
+		}
+		else if (currentBoost > (boostLength/2.0f))
+		{	
+			transform.rotation = Quaternion.Euler(boostDirection);
+		}
+		else if (currentBoost > 0)
+		{	
+	
+		}
+		else
+		{
+			var relativeMA = (Mathf.Atan2(point.y, point.x) * Mathf.Rad2Deg) - 90f;
+			transform.rotation = Quaternion.Euler(0, 0, relativeMA);
+		}
 	}
 	
 	public void boost()
@@ -80,6 +109,7 @@ public class Head : MonoBehaviour
 		{
 			currentBoost = boostLength;
 			coolCurrent = boostCoolDown;
+			boostDirection = gameObject.transform.eulerAngles;
 		}
 	}
 
