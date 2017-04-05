@@ -93,12 +93,15 @@ public class Head : MonoBehaviour
 		}
 		else if (other.gameObject.tag == "Body" && currentBoost > 0)
 		{
-			other.transform.parent.GetComponent<WormDie>().Kill();
-			// increment the player's score as well
-			player.IncrementScore(100);
+			// if the worm hits a tail while boosting, it kills the worm
+			if (other.transform.parent != gameObject.transform.parent)
+			{	// ... assuming it's not your OWN tail
+				other.transform.parent.GetComponent<WormDie>().Kill();
+				player.IncrementScore(100); // Increment score by 100 for kills. 
+			}
 		}
 		else
-		{	// if the worm hits somethign that doesn't give way, it looses any boost momentum
+		{	// if the worm hits something that doesn't give way, it loses any boost momentum
 			currentBoost = 0;
 		}
 	}
