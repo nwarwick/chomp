@@ -27,11 +27,13 @@ public class WormDie : MonoBehaviour
 
         head.GetComponent<Head>().deadAngle = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0f);
         head.GetComponent<Head>().dead = true;
+		head.GetComponent<Collider2D>().enabled = false;
 
         for (int i = 0; i < player.bodyParts.Length; i++)
         {
             player.bodyParts[i].deadAngle = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0f);
             player.bodyParts[i].dead = true;
+			player.bodyParts[i].GetComponent<Collider2D>().enabled = false;
         }
 
         /* 
