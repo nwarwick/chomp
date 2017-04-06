@@ -7,7 +7,7 @@ using UnityEngine;
 // (feel free to change it)
 
 public class WormManager : MonoBehaviour {
-	public GameObject wormPref; 
+	public GameObject wormPrefab; 
 	public float maxWorms = 5; // Max number of worms to spawn on the map
 	//public List<GameObject> foodList = new List<GameObject>(); // Food currently on the map
 	public float xBound = 80f; // Bound for the worm spawn location
@@ -16,9 +16,9 @@ public class WormManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if(wormPref == null)
+		if(wormPrefab == null)
 		{
-			Debug.Log("No AI worm item found!");
+			Debug.Log("No worm prefab found!");
 			return;
 		}
 	}
@@ -37,6 +37,14 @@ public class WormManager : MonoBehaviour {
 	// Spawns food at a random location within the specified bounds
 	public void SpawnWorm(){
 		Vector3 spawnLocation = new Vector3(Random.Range(-xBound, xBound), Random.Range(-yBound, yBound), 0);
-		Instantiate(wormPref, spawnLocation, Quaternion.identity);
+		GameObject newWorm = Instantiate(wormPrefab, spawnLocation, Quaternion.identity);
+		//Create random color
+   		Color randColor = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), 1.0f);
+		SpriteRenderer[] bodySprites =  newWorm.GetComponentsInChildren<SpriteRenderer>();
+		// Make the worm a random colour because it is fun
+		for(int i = 0; i < bodySprites.Length; i ++)
+		{
+			bodySprites[i].material.color = randColor;
+		}
 	}
 }
