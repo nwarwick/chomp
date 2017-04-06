@@ -24,7 +24,7 @@ public class AISpot : MonoBehaviour {
 			AIControls.foodQueue3 = null;
 			
 		}
-		else if (other.gameObject.tag == "Body" && other.gameObject.transform.parent != gameObject.transform.parent && AIControls.state != 3)
+		else if (other.gameObject.tag == "Body" && other.gameObject.transform.parent != gameObject.transform.parent.parent && AIControls.state != 3)
 		{	// otherwise if it sees the tail first, it sees an opportunity (not its OWN tail, obviously)
 			AIControls.state = 4;
 			AIControls.target = other.gameObject;
