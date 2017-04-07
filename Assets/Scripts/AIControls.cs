@@ -78,21 +78,15 @@ public class AIControls : MonoBehaviour {
 			{
 				
 				Food newFood = foodList[Random.Range(0, foodList.Length)];
-				target = newFood.gameObject;
 
-				/*if (foodQueue1 == null)
+				if (newFood == null) // If no food on map
 				{
-					target = null;
 					state = 1;
 					SetRandomDestination();
+					head.turnTowards(destination);
+					return;
 				}
-				else
-				{
-					target = foodQueue1;
-					foodQueue1 = foodQueue2;
-					foodQueue2 = foodQueue3;
-					foodQueue3 = null;
-				}*/
+				target = newFood.gameObject;
 			}
 
 
