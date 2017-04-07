@@ -8,9 +8,13 @@ public class AIControls : MonoBehaviour {
 	public int state; // 0 Testing; 1 Wandering; 2 Grazing
 	
 	public GameObject target;	// the object the ai is currently moving towards, if any
-	public GameObject foodQueue1; // these variables SHOULD be a queue, but I can't seem to get that to work
+	/*public GameObject foodQueue1; // these variables SHOULD be a queue, but I can't seem to get that to work
 	public GameObject foodQueue2;
-	public GameObject foodQueue3;
+	public GameObject foodQueue3;*/
+
+	public GameObject gm;
+	public Food[] foodList; // List of food objects on the map
+
 	Vector3 destination; // the location the ai is moving towards, when it doesn't have an object target
 	
 	// adjust these two floats if the size of the map changes
@@ -24,6 +28,9 @@ public class AIControls : MonoBehaviour {
 		head = GetComponent<Head> ();
 		state = 1;
 		SetRandomDestination();
+
+		gm = GameObject.Find("GameManager");
+		foodList = gm.GetComponent<FoodManager>().foodList; // Get list of food on the map
 	}
 	
 	void SetRandomDestination()
@@ -34,6 +41,8 @@ public class AIControls : MonoBehaviour {
 	
 	void FixedUpdate () 
 	{
+		// Update list of food on map
+		foodList = gm.GetComponent<FoodManager>().foodList;
 		// the AI always moves at maxiumum speed, since it has perfect reflexes and doesn't care about precision anyway
 		
 		if (state == 0)
@@ -58,16 +67,20 @@ public class AIControls : MonoBehaviour {
 		}
 		else if (state == 2)
 		{	// GRAZING (moving to the nearest food)
-			if (foodQueue1 == null)
+			/*if (foodQueue1 == null)
 			{	// in case someone else eats his food1, but he still has a food2 queued
 				foodQueue1 = foodQueue2;
 				foodQueue2 = foodQueue3;
 				foodQueue3 = null;
-			}
+			}*/
 				
 			if (target == null)
 			{
-				if (foodQueue1 == null)
+				
+				Food newFood = foodList[Random.Range(0, foodList.Length)];
+				target = newFood.gameObject;
+
+				/*if (foodQueue1 == null)
 				{
 					target = null;
 					state = 1;
@@ -79,8 +92,10 @@ public class AIControls : MonoBehaviour {
 					foodQueue1 = foodQueue2;
 					foodQueue2 = foodQueue3;
 					foodQueue3 = null;
-				}
+				}*/
 			}
+
+
 			
 			destination = target.transform.position - head.transform.position;
 			head.turnTowards(destination);
