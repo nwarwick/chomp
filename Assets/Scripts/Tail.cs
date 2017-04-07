@@ -21,7 +21,6 @@ public class Tail : MonoBehaviour {
 			gameObject.transform.position += deadAngle * Time.deltaTime; // slide in a randomly selected (by WormDie.cs) direction
 			transform.Rotate(Vector3.forward * Time.deltaTime * 90f);	// rotate
 			transform.localScale += new Vector3(-0.003f, -0.003f, 0);
-			
 		}
 		else
 		{	// otherwise, follow the leader

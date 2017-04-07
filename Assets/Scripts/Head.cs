@@ -78,38 +78,37 @@ public class Head : MonoBehaviour
     }
 
     public void turnTowards(Vector3 point)
-    {
-        if (currentBoost > boostLength - (1.0f / 4.0f))
-        {
-            var relativeMA = (Mathf.Atan2(point.y, point.x) * Mathf.Rad2Deg) - 90f;
-            var relativeBA = boostDirection;
+	{
+		var relativeMA = (Mathf.Atan2(point.y, point.x) * Mathf.Rad2Deg) - 90f;
+		var relativeBD = boostDirection.z;
+		if (relativeBD < 0)
+			relativeBD += 360f;
+			
+		if (currentBoost > boostLength - (1.0f/4.0f))
+		{	
+			transform.rotation = Quaternion.Euler(0, 0, relativeMA);
+			
+			boostDirection = gameObject.transform.eulerAngles;
+		}
+		else if (currentBoost > (boostLength/2.0f))
+		{	
+			transform.rotation = Quaternion.Euler(0, 0, relativeBD);
+		}
+		else if (currentBoost > 0)
+		{	
+			var newangle = ((relativeBD+relativeMA)/2.0f);
+			if (relativeBD > 90)
+				transform.rotation = Quaternion.Euler(0, 0, 180+newangle);
+			else
+				transform.rotation = Quaternion.Euler(0, 0, newangle);
 
-            if (relativeMA - relativeBA.z > 0)
-            {   // turn left
-                relativeBA.z += (3f * boostLength - (1.0f / 4.0f));
-            }
-            else
-            {   // turn right
-                relativeBA.z -= (3f * boostLength - (1.0f / 4.0f));
-            }
-            transform.rotation = Quaternion.Euler(relativeBA);
-
-            boostDirection = gameObject.transform.eulerAngles;
-        }
-        else if (currentBoost > (boostLength / 2.0f))
-        {
-            transform.rotation = Quaternion.Euler(boostDirection);
-        }
-        else if (currentBoost > 0)
-        {
-
-        }
-        else
-        {
-            var relativeMA = (Mathf.Atan2(point.y, point.x) * Mathf.Rad2Deg) - 90f;
-            transform.rotation = Quaternion.Euler(0, 0, relativeMA);
-        }
-    }
+			boostDirection = gameObject.transform.eulerAngles;
+		}
+		else
+		{
+			transform.rotation = Quaternion.Euler(0, 0, relativeMA);
+		}
+	}
 
     public void boost()
     {
