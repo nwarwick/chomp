@@ -10,6 +10,8 @@ public class Tail : MonoBehaviour {
 	public bool dead = false;
 	public Vector3 deadAngle = new Vector3(0f, 0f, 0f);
 	
+	public float moveSpeed = 0.0f;
+	
 	void Start () 
 	{
 		Physics2D.IgnoreCollision(leader.GetComponent<CircleCollider2D>(), GetComponent<CircleCollider2D>()); // Ignore collisions with leading object
@@ -26,24 +28,15 @@ public class Tail : MonoBehaviour {
 		{	// otherwise, follow the leader
 			var leaderspot = leader.transform.position - transform.position;
 			float leaderDistance2 = leaderspot.y*leaderspot.y + leaderspot.x * leaderspot.x;	// (distance squared)
-			float modifiedDistance2 = leaderDistance2 - stickDistance*stickDistance;			// (distance-stickdistance squared)
+			float modifiedDistance2 = leaderDistance2 - (stickDistance*stickDistance);			// (distance squared -stickdistance squared)
 		
 			var leaderangle = Mathf.Atan2(leaderspot.y, leaderspot.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.Euler(0, 0, leaderangle-90);
-		
-			var moveSpeed = (modifiedDistance2*4.0f)/(stickDistance*stickDistance);
 			
+			moveSpeed = ((modifiedDistance2*4.0f)/(stickDistance*stickDistance));
 			gameObject.transform.position += gameObject.transform.up * moveSpeed * Time.deltaTime;
 		}
 		
 	}
 	
-//	void OnCollisionEnter2D(Collision2D other)
-//	{
-//		if (other.gameObject.name.StartsWith(leader.name))
-//		{
-//			// NOTE: This DOES work to detect collisions with the "leader" object
-//			// Please don't delete this yet; I'd like to keep it for reference if we don't find an actual use for it
-//		}
-//	}
 }
