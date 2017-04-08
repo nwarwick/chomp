@@ -142,8 +142,7 @@ public class AIControls : MonoBehaviour {
 		{	// CHARGING
 			if (head.currentBoost <= 0)
 			{
-				head.boost();
-				state = 5;
+				state = 3;
 			}
 		}
 	}
