@@ -132,7 +132,7 @@ public class AIControls : MonoBehaviour {
 			
 			if (targetDistance2 < 30)
 				head.boost();
-			else if (targetDistance2 > 150 && head.currentBoost <= 0)
+			else if (head.currentBoost <= 0)
 				state = 1;
 		}
 	}

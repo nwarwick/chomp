@@ -17,10 +17,12 @@ public class AISpot : MonoBehaviour {
 	{
 		//float otherDistance2 = ((other.gameObject.transform.position.x - gameObject.transform.position.x)) * (other.gameObject.transform.position.x - gameObject.transform.position.x) + ((other.gameObject.transform.position.y - gameObject.transform.position.y) * (other.gameObject.transform.position.y - gameObject.transform.position.y));
 		
-		if(other.gameObject.name == "Head" && AIControls.state != 4)
+		if(other.gameObject.name == "Head" && AIControls.state < 3)
 		{	// if it spots another worm, it has to decide how to react
-			AIControls.state = 4;
-			
+			if (Random.Range(-5.0f, 10.0f) < 0)	// a 1/3 chance of fleeing
+				AIControls.state = 3;
+			else		// otherwise, attack!
+				AIControls.state = 4;
 			
 			
 			AIControls.target = other.gameObject;

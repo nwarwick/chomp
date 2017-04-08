@@ -86,9 +86,11 @@ public class Head : MonoBehaviour
 			
 		if (currentBoost > boostLength - (1.0f/4.0f))
 		{	
-			transform.rotation = Quaternion.Euler(0, 0, relativeMA);
+	
+			transform.rotation = Quaternion.Euler(0, 0, relativeBD);
+			//transform.rotation = Quaternion.Euler(0, 0, relativeMA);
 			
-			boostDirection = gameObject.transform.eulerAngles;
+			//boostDirection = gameObject.transform.eulerAngles;
 		}
 		else if (currentBoost > (boostLength/2.0f))
 		{	

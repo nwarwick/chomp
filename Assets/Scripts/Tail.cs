@@ -28,8 +28,8 @@ public class Tail : MonoBehaviour {
 		{	// otherwise, follow the leader
 	
 			var leaderspot = leader.transform.position - transform.position;
-			float leaderDistance2 = leaderspot.y*leaderspot.y + leaderspot.x * leaderspot.x;	// (distance squared)
-			float modifiedDistance2 = leaderDistance2 - (stickDistance*stickDistance);			// (distance squared -stickdistance squared)
+			//float leaderDistance2 = leaderspot.y*leaderspot.y + leaderspot.x * leaderspot.x;	// (distance squared)
+			//float modifiedDistance2 = leaderDistance2 - (stickDistance*stickDistance);			// (distance squared -stickdistance squared)
 		
 			var leaderangle = Mathf.Atan2(leaderspot.y, leaderspot.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.Euler(0, 0, leaderangle-90);
