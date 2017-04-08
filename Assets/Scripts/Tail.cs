@@ -26,6 +26,7 @@ public class Tail : MonoBehaviour {
 		}
 		else
 		{	// otherwise, follow the leader
+	
 			var leaderspot = leader.transform.position - transform.position;
 			float leaderDistance2 = leaderspot.y*leaderspot.y + leaderspot.x * leaderspot.x;	// (distance squared)
 			float modifiedDistance2 = leaderDistance2 - (stickDistance*stickDistance);			// (distance squared -stickdistance squared)
@@ -33,9 +34,13 @@ public class Tail : MonoBehaviour {
 			var leaderangle = Mathf.Atan2(leaderspot.y, leaderspot.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.Euler(0, 0, leaderangle-90);
 			
+			gameObject.transform.position += gameObject.transform.up * (leaderspot.magnitude - stickDistance);
+			
+			/*
 			//moveSpeed = ((modifiedDistance2*4.0f)/(stickDistance*stickDistance));
 			moveSpeed = modifiedDistance2 * 50.0f;
 			gameObject.transform.position += gameObject.transform.up * moveSpeed * Time.deltaTime;
+			*/
 		}
 		
 	}
