@@ -33,7 +33,8 @@ public class Tail : MonoBehaviour {
 			var leaderangle = Mathf.Atan2(leaderspot.y, leaderspot.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.Euler(0, 0, leaderangle-90);
 			
-			moveSpeed = ((modifiedDistance2*4.0f)/(stickDistance*stickDistance));
+			//moveSpeed = ((modifiedDistance2*4.0f)/(stickDistance*stickDistance));
+			moveSpeed = modifiedDistance2 * 50.0f;
 			gameObject.transform.position += gameObject.transform.up * moveSpeed * Time.deltaTime;
 		}
 		

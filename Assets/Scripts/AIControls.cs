@@ -97,30 +97,34 @@ public class AIControls : MonoBehaviour {
 			head.moveSpeed = head.topSpeed;
 		}
 		else if (state == 3)
-		{	// FLEEING (moving directly away from the other worm, boosting if possible)
+		{	// FLEEING (moving directly away from the other worm, making a swerve and boost if the other gets too close or boosts)
 			
 			if (target == null)
 				state = 1;
 			
-			destination = -(target.transform.position - head.transform.position);
-			head.turnTowards(destination);
 			float targetDistance2 = destination.x * destination.x + destination.y * destination.y;
+			destination = -(target.transform.position - head.transform.position);
+			
+			if (targetDistance2 < 15.0f)
+			{
+				// destination altered to create "swerve"?
+				head.boost();
+			}
+			head.turnTowards(destination);
 			
 			head.moveSpeed = head.topSpeed;
 			
-			if (targetDistance2 < 20)
-				head.boost();
-			else if (targetDistance2 > 150 && head.currentBoost <= 0)
+			if (targetDistance2 > 150 && head.currentBoost <= 0)
 				state = 1;
 		}
 		else if (state == 4)
 		{	// HUNTING (moving directly towards the target, boosting if possible)
+			Debug.Log("Attacking!");
 			
 			if (target == null)
 				state = 1;
 			
 			destination = target.transform.position - head.transform.position;
-			destination *= 4.0f;
 			head.turnTowards(destination);
 			float targetDistance2 = destination.x * destination.x + destination.y * destination.y;
 			
@@ -131,7 +135,5 @@ public class AIControls : MonoBehaviour {
 			else if (targetDistance2 > 150 && head.currentBoost <= 0)
 				state = 1;
 		}
-		
-		// at the moment, te AI doesn't boost*/
 	}
 }

@@ -81,7 +81,7 @@ public class Head : MonoBehaviour
 	{
 		var relativeMA = (Mathf.Atan2(point.y, point.x) * Mathf.Rad2Deg) - 90f;
 		var relativeBD = boostDirection.z;
-		if (relativeBD < 0)
+		if (relativeBD < 0)	// convert relativeBD from (180 to -180) to (0 to 360), like relativeMA
 			relativeBD += 360f;
 			
 		if (currentBoost > boostLength - (1.0f/4.0f))
@@ -96,13 +96,15 @@ public class Head : MonoBehaviour
 		}
 		else if (currentBoost > 0)
 		{	
-			var newangle = ((relativeBD+relativeMA)/2.0f);
+			/*var newangle = ((relativeBD+relativeMA)/2.0f);
 			if (relativeBD > 90)
 				transform.rotation = Quaternion.Euler(0, 0, 180+newangle);
 			else
 				transform.rotation = Quaternion.Euler(0, 0, newangle);
 
-			boostDirection = gameObject.transform.eulerAngles;
+			boostDirection = gameObject.transform.eulerAngles;*/
+			
+			transform.rotation = Quaternion.Euler(0, 0, relativeMA);
 		}
 		else
 		{
@@ -136,7 +138,7 @@ public class Head : MonoBehaviour
         else if (other.gameObject.tag == "Body" && currentBoost > 0)
         {
             // if the worm hits a tail while boosting, it kills the worm
-            if (other.transform.parent != gameObject.transform.parent)
+            if (checkTail(other))
             {   // ... assuming it's not your OWN tail
                 other.transform.parent.GetComponent<WormDie>().Kill();
 
@@ -152,4 +154,12 @@ public class Head : MonoBehaviour
             currentBoost = 0;
         }
     }
+	
+	public bool checkTail(Collision2D mystery)
+	{	// if it's someone else's tail, return true
+		if (mystery.transform.parent != gameObject.transform.parent)
+			return true;
+		else	// else (if it's OUR tail) return false
+			return false;
+	}
 }
