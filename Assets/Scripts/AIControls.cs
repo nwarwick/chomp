@@ -19,8 +19,8 @@ public class AIControls : MonoBehaviour {
 	
 	// adjust these two floats if the size of the map changes
 	// (maybe they can somehow be fetched from the game management object during Start() or something, to allow for variable board sizes?)
-	public float xBound = 80f;
-	public float yBound = 80f;
+	public float xBound = 10f;
+	public float yBound = 10f;
 	float wanderTimer;
 	
 	void Start() 
@@ -131,9 +131,20 @@ public class AIControls : MonoBehaviour {
 			head.moveSpeed = head.topSpeed;
 			
 			if (targetDistance2 < 30)
+			{
 				head.boost();
-			else if (head.currentBoost <= 0)
+				state = 5;
+			}
+			else if (targetDistance2 > 150)
 				state = 1;
+		}
+		else if (state == 5)
+		{	// CHARGING
+			if (head.currentBoost <= 0)
+			{
+				head.boost();
+				state = 5;
+			}
 		}
 	}
 }
