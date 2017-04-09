@@ -6,11 +6,13 @@ using UnityEngine;
 public class Worm : MonoBehaviour {
  	public Head head;
 	public Tail[] bodyParts;
+	public AudioManager am;
 
 	// Use this for initialization
 	void Start () {
 		head = gameObject.GetComponentInChildren<Head>();
 		bodyParts = GetComponentsInChildren<Tail>();
+		am = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 	}
 	
 	void Update() { }
@@ -50,7 +52,7 @@ public class Worm : MonoBehaviour {
         tail3.GetComponent<Tail>().deadAngle = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0f);
         tail3.GetComponent<Tail>().dead = true;
 		tail3.GetComponent<Collider2D>().enabled = false;*/
-
+		am.PlaySound("Death");
         Destroy(gameObject, 1f);
     }
 }
