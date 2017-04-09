@@ -142,7 +142,7 @@ public class Head : MonoBehaviour
             // if the worm hits a tail while boosting, it kills the worm
             if (checkTail(other))
             {   // ... assuming it's not your OWN tail
-                other.transform.parent.GetComponent<WormDie>().Kill();
+                other.transform.parent.GetComponent<Worm>().Kill();
 
                 // If we are a player, increment score
                 if (transform.parent.gameObject.tag == "Player")
