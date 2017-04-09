@@ -98,12 +98,12 @@ public class AIControls : MonoBehaviour {
 		}
 		else if (state == 3)
 		{	// FLEEING (moving directly away from the other worm, making a swerve and boost if the other gets too close or boosts)
-			
 			if (target == null)
 				state = 1;
+			else
+				destination = -(target.transform.position - head.transform.position);
 			
 			float targetDistance2 = destination.x * destination.x + destination.y * destination.y;
-			destination = -(target.transform.position - head.transform.position);
 			
 			if (targetDistance2 < 15.0f)
 			{
@@ -119,12 +119,11 @@ public class AIControls : MonoBehaviour {
 		}
 		else if (state == 4)
 		{	// HUNTING (moving directly towards the target, boosting if possible)
-			Debug.Log("Attacking!");
-			
 			if (target == null)
 				state = 1;
+			else
+				destination = target.transform.position - head.transform.position;
 			
-			destination = target.transform.position - head.transform.position;
 			head.turnTowards(destination);
 			float targetDistance2 = destination.x * destination.x + destination.y * destination.y;
 			
