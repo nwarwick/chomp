@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour {
 
+	public AudioManager am;
+
 	// Use this for initialization
 	void Start () {
-		
+		am = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 	}
 	
 	// Update is called once per frame
@@ -29,5 +31,6 @@ public class PowerUp : MonoBehaviour {
 	{
 		// TODO
 		Destroy(gameObject);
+		am.PlaySound("PowerUp");
 	}
 }
