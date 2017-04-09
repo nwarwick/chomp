@@ -34,7 +34,7 @@ public class PowerUpManager : MonoBehaviour
 
 	void SpawnPowerUp()
 	{
-		Vector3 spawnLocation = new Vector3(Random.Range(-xBound, xBound), Random.Range(-yBound, yBound), 0);
+		Vector3 spawnLocation = new Vector3(Random.Range(-xBound, xBound), Random.Range(-yBound, yBound), -0.57f);
 		Instantiate(powerUp, spawnLocation, Quaternion.identity);
 	}
 }
