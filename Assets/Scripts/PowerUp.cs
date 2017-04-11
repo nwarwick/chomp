@@ -17,11 +17,12 @@ public class PowerUp : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
-	{
+	{	
 		// Check if we hit a Player/AI head
 		if(gameObject.tag == "UltimatePowerUp" && other.gameObject.tag == "Head")
 		{
-			Debug.Log("POWERING UP");
+			other.gameObject.GetComponent<Head>().powerup = 4.0f;
+			//Debug.Log("POWERING UP");
 			EnableUltimate(other.gameObject);
 		}
 	}

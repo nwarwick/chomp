@@ -17,6 +17,8 @@ public class Head : MonoBehaviour
     public float coolCurrent = 0; // Made public for charge status update
     public float currentBoost = 0;
     Vector3 boostDirection;
+	
+	public float powerup = 0;	// how much duration is left for the item-based powerup (boosts speed)
 
     public bool dead = false;
     public Vector3 deadAngle = new Vector3(0f, 0f, 0f);
@@ -52,7 +54,12 @@ public class Head : MonoBehaviour
         {
             if (moveSpeed > topSpeed)
                 moveSpeed = topSpeed;
-
+			if (powerup > 0)
+			{
+				moveSpeed *= 2; 		// double speed?
+				powerup -= Time.deltaTime;
+			}
+			
             if (currentBoost > boostLength - (1.0f / 4.0f))
             {   // in the first 1/4 second, we are interpolating up to full boost speed
                 var accelFactor = (boostLength - currentBoost) * 4.0f;
@@ -68,12 +75,14 @@ public class Head : MonoBehaviour
                 moveSpeed = (moveSpeed * (1.0f - decelFactor)) + ((topSpeed * boostSpeed) * (decelFactor));
             }
 
+			
             gameObject.transform.position += gameObject.transform.up * moveSpeed * Time.deltaTime;
 
             if (currentBoost > 0)
                 currentBoost -= Time.deltaTime;
             if (currentBoost <= 0 && coolCurrent > 0)
                 coolCurrent -= Time.deltaTime;
+			
         }
     }
 
@@ -129,6 +138,15 @@ public class Head : MonoBehaviour
             currentBoost = 0;
         }
     }
+	
+	void OnTriggerEnter2D(Collider2D other)
+	{	
+		if (other.gameObject.tag == "UltimatePowerUp")
+        {
+            powerup = 5.0f;		// five seconds?
+			Debug.Log("POWERING UP");            
+        }
+	}
 	
 	public bool checkTail(Collision2D mystery)
 	{	// if it's someone else's tail, return true
