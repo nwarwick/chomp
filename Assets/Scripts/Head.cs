@@ -5,6 +5,7 @@ using UnityEngine;
 public class Head : MonoBehaviour
 {
     public Player player;
+	public AudioManager am;
     // BASIC MOVEMENT VALUES
     public float topSpeed;      // maximum movement speed (when not boosting)
                                 // BOOST VALUES
@@ -24,9 +25,10 @@ public class Head : MonoBehaviour
     public Vector3 deadAngle = new Vector3(0f, 0f, 0f);
 
 
-
     void Start()
     {
+		am = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+		
         if (player == null)
         {
             player = transform.parent.gameObject.GetComponent<Player>();
@@ -129,6 +131,7 @@ public class Head : MonoBehaviour
                 // If we are a player, increment score
                 if (transform.parent.gameObject.tag == "Player")
                 {
+					am.PlaySound("Chomp");
                     player.IncrementScore(100); // Increment score by 100 for kills.  
                 }
             }
