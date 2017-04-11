@@ -84,34 +84,7 @@ public class Head : MonoBehaviour
 		if (relativeBD < 0)	// convert relativeBD from (180 to -180) to (0 to 360), like relativeMA
 			relativeBD += 360f;
 			
-		if (currentBoost > boostLength - (1.0f/4.0f))
-		{	
-	
-			transform.rotation = Quaternion.Euler(0, 0, relativeBD);
-			//transform.rotation = Quaternion.Euler(0, 0, relativeMA);
-			
-			//boostDirection = gameObject.transform.eulerAngles;
-		}
-		else if (currentBoost > (boostLength/2.0f))
-		{	
-			transform.rotation = Quaternion.Euler(0, 0, relativeBD);
-		}
-		else if (currentBoost > 0)
-		{	
-			/*var newangle = ((relativeBD+relativeMA)/2.0f);
-			if (relativeBD > 90)
-				transform.rotation = Quaternion.Euler(0, 0, 180+newangle);
-			else
-				transform.rotation = Quaternion.Euler(0, 0, newangle);
-
-			boostDirection = gameObject.transform.eulerAngles;*/
-			
-			transform.rotation = Quaternion.Euler(0, 0, relativeMA);
-		}
-		else
-		{
-			transform.rotation = Quaternion.Euler(0, 0, relativeMA);
-		}
+		transform.rotation = Quaternion.Euler(0, 0, relativeMA);
 	}
 
     public void boost()
