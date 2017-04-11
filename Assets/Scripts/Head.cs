@@ -5,6 +5,7 @@ using UnityEngine;
 public class Head : MonoBehaviour
 {
     public Player player;
+    public Tail[] bodyParts;
 	public AudioManager am;
     // BASIC MOVEMENT VALUES
     public float topSpeed;      // maximum movement speed (when not boosting)
@@ -39,6 +40,7 @@ public class Head : MonoBehaviour
         {
 			// Don't need to do anything (yet) because I added checks before incrementing score
         }
+        bodyParts = GetComponentInParent<Worm>().bodyParts;
 
     }
 
@@ -60,7 +62,9 @@ public class Head : MonoBehaviour
 			{
 				moveSpeed *= 2; 		// double speed?
 				powerup -= Time.deltaTime;
-			}
+			} else {
+                bodyParts[bodyParts.Length-1].GetComponent<TrailRenderer>().enabled = false; // Disable the light trail from the end of the tail
+            }
 			
             if (currentBoost > boostLength - (1.0f / 4.0f))
             {   // in the first 1/4 second, we are interpolating up to full boost speed
@@ -147,7 +151,8 @@ public class Head : MonoBehaviour
 		if (other.gameObject.tag == "UltimatePowerUp")
         {
             powerup = 5.0f;		// five seconds?
-			Debug.Log("POWERING UP");            
+			Debug.Log("POWERING UP");
+            bodyParts[bodyParts.Length-1].GetComponent<TrailRenderer>().enabled = true; // Enable the light trail from the end of the tail          
         }
 	}
 	
