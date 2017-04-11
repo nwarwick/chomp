@@ -52,7 +52,10 @@ public class Worm : MonoBehaviour {
         tail3.GetComponent<Tail>().deadAngle = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0f);
         tail3.GetComponent<Tail>().dead = true;
 		tail3.GetComponent<Collider2D>().enabled = false;*/
-		am.PlaySound("Death");
+		if (gameObject.tag == "Player")
+		{
+			am.PlaySound("Death");
+		}
         Destroy(gameObject, 1f);
     }
 }
