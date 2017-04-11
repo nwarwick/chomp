@@ -24,6 +24,8 @@ public class PowerUp : MonoBehaviour {
 			other.gameObject.GetComponent<Head>().powerup = 4.0f;
 			//Debug.Log("POWERING UP");
 			EnableUltimate(other.gameObject);
+			if (other.gameObject.transform.parent.tag == "Player")
+				am.PlaySound("PowerUp");
 		}
 	}
 
@@ -32,6 +34,6 @@ public class PowerUp : MonoBehaviour {
 	{
 		// TODO
 		Destroy(gameObject);
-		am.PlaySound("PowerUp");
+		//am.PlaySound("PowerUp");
 	}
 }
