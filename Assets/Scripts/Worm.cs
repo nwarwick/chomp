@@ -8,10 +8,14 @@ public class Worm : MonoBehaviour {
 	public Tail[] bodyParts;
 	public AudioManager am;
 
+    void Awake()
+    {
+        bodyParts = GetComponentsInChildren<Tail>();
+    }
 	// Use this for initialization
 	void Start () {
 		head = gameObject.GetComponentInChildren<Head>();
-		bodyParts = GetComponentsInChildren<Tail>();
+		
 		am = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 	}
 	
