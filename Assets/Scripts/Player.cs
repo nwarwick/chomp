@@ -25,6 +25,7 @@ public class Player : MonoBehaviour {
 	{
 		score+=amount;
 		uiScore.text = "Score: " + score.ToString();
+		HighScoreTracker.lastScore = score;
 	}
 
 	// Update the charge status text
