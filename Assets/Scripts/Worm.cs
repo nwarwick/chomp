@@ -7,6 +7,7 @@ public class Worm : MonoBehaviour {
  	public Head head;
 	public Tail[] bodyParts;
 	public AudioManager am;
+	public PlayerDeath playerDeath;
 
     void Awake()
     {
@@ -15,7 +16,7 @@ public class Worm : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		head = gameObject.GetComponentInChildren<Head>();
-		
+		playerDeath = GetComponent<PlayerDeath>();
 		am = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 	}
 	
@@ -59,7 +60,8 @@ public class Worm : MonoBehaviour {
 		if (gameObject.tag == "Player")
 		{
 			am.PlaySound("Death");
+			playerDeath.returnToMenu();
 		}
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 1.2f);
     }
 }
