@@ -112,7 +112,9 @@ public class Head : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    public float xBound = 55f; // Bound for the worm spawn location
+	public float yBound = 55f;
+	void OnCollisionEnter2D(Collision2D other)
     {
         // If we hit food
         if (other.gameObject.tag == "Food")
@@ -140,7 +142,11 @@ public class Head : MonoBehaviour
                 }
             }
         }
-        else
+        else if (other.gameObject.tag == "Chuansong") {
+			Vector3 randomPos = new Vector3(Random.Range(-xBound, xBound), Random.Range(-yBound, yBound), 0);
+			transform.position = randomPos;
+		}
+		else
         {   // if the worm hits something that doesn't give way, it loses any boost momentum
             currentBoost = 0;
         }
