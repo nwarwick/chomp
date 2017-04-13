@@ -151,8 +151,8 @@ public class Head : MonoBehaviour
 		if (other.gameObject.tag == "UltimatePowerUp")
         {
             powerup = 5.0f;		// five seconds?
-			Debug.Log("POWERING UP");
-            bodyParts[bodyParts.Length-1].GetComponent<TrailRenderer>().enabled = true; // Enable the light trail from the end of the tail          
+			//Debug.Log("POWERING UP");
+//            bodyParts[bodyParts.Length-1].GetComponent<TrailRenderer>().enabled = true; // Enable the light trail from the end of the tail          
         }
 	}
 	
